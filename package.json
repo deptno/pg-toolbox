@@ -1,0 +1,10 @@
+{
+  "name": "pg-toolbox",
+  "scripts": {
+    "build": "yarn workspaces run build"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

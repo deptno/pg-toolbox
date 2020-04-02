@@ -1,0 +1,22 @@
+{
+  "name": "copy",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/node": "12",
+    "@types/pg": "^7.14.3",
+    "@types/pg-copy-streams": "^1.2.1",
+    "@types/unzipper": "0.10.3",
+    "jest": "^25.2.4",
+    "ts-jest": "^25.3.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "pg": "^8.0.0",
+    "pg-copy-streams": "^2.2.2",
+    "unzipper": "^0.10.10"
+  }
+}

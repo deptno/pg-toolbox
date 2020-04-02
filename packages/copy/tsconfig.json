@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "outDir": "dist"
+  }
+}

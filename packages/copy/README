@@ -1,0 +1,3 @@
+# copy
+
+`copy real_estate.${tableName} from stdin with encoding 'euc-kr' delimiter '|' csv`
