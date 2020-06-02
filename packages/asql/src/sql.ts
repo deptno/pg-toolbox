@@ -6,9 +6,13 @@ export const sql = (clauses: TemplateStringsArray, ...exps: any[]): [string, Bin
 
   return [sql, pgArgs.args()]
 }
-export const $if = (condition: boolean, ...tt: any[]) => {
-  if (condition) {
-    return () => tt.flat()
+export const $if = (condition: unknown, ...tt: any[]) => {
+  const flat = () => tt.flat()
+
+  if (Array.isArray(condition)) {
+    return flat
+  } else if (condition) {
+    return flat
   }
 
   return () => [
@@ -43,12 +47,16 @@ function _sql({add, args}) {
     .join('\n')
 }
 function _arrayArgs(add, v: any) {
-  return v.map(vv => {
-    if (Array.isArray(vv)) {
-      return '(' + _arrayArgs(add, vv) + ')'
-    }
-    return add(vv)
-  })
+  if (v.length > 0) {
+    return v.map(vv => {
+      if (Array.isArray(vv)) {
+        return '(' + _arrayArgs(add, vv) + ')'
+      }
+      return add(vv)
+    })
+  } else {
+    return 'NULL'
+  }
 }
 class Escape {
   constructor(private _data) {

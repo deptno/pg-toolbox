@@ -1,8 +1,11 @@
 {
-  "name": "sql",
-  "version": "0.1.0",
+  "name": "asql",
+  "version": "0.1.1",
+  "types": "dist/index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "npm publish"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",
