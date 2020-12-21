@@ -24,3 +24,14 @@ export class NullableMinMax {
     return ''
   }
 }
+type NullableMinMaxData = {
+  min?: Number
+  max?: Number
+}
+type NullableMinMaxOption = {
+  greaterThan?: GreaterThanOperator
+  lessThan?: LessThanOperator
+  notNull?: boolean
+}
+type GreaterThanOperator = '>' | '>='
+type LessThanOperator = '<' | '<='
