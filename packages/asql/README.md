@@ -1,4 +1,5 @@
 # asql
+[![npm](https://img.shields.io/npm/dt/@deptno/pg-toolbox.svg?style=for-the-badge)](https://www.npmjs.com/package/@deptno/pg-tollbox)
 
 generate postgresql query using tagged template literals
 
