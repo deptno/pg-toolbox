@@ -1,4 +1,4 @@
 # pg-toolbox
 
 npm packages
-- asql
+- [packages/asql](asql)
