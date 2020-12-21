@@ -1,6 +1,6 @@
 {
   "name": "asql",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "types": "dist/index.ts",
   "main": "dist/index.js",
   "scripts": {
