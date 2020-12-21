@@ -1,4 +1,4 @@
-name: qsql
+name: asql
 
 on:
   push:
@@ -9,17 +9,18 @@ on:
 jobs:
   publish-package:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/asql
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
       - run: npm run test
-        working-directory: packages/asql
       - run: npm run build
-        working-directory: packages/asql
       - run: npm run deploy
-        working-directory: packages/asql
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
