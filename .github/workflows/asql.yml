@@ -1,10 +1,10 @@
-name: package
+name: qsql
 
 on:
   push:
     paths:
-      - 'package.json'
-      - '.github/workflows/package.yml'
+      - 'packages/asql/package.json'
+      - '.github/workflows/asql.yml'
 
 jobs:
   publish-package:
@@ -16,8 +16,10 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm run test
+        working-directory: packages/asql
       - run: npm run build
-      - name: publish package to npm
-        run: npm run deploy
+        working-directory: packages/asql
+      - run: npm run deploy
+        working-directory: packages/asql
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
