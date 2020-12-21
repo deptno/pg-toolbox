@@ -3,7 +3,7 @@ name: asql
 on:
   push:
     paths:
-      - 'packages/asql/package.json'
+      - 'packages/asql/**/*'
       - '.github/workflows/asql.yml'
 
 jobs:
