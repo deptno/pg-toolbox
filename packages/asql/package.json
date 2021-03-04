@@ -1,12 +1,17 @@
 {
   "name": "asql",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "types": "dist/index.ts",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "deploy": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deptno/pg-toolbox.git",
+    "directory": "packages/asql"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
