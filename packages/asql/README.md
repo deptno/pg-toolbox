@@ -20,7 +20,7 @@ npm install asql
 import {Client} from 'pg'
 import {sql} from 'asql'
 
-const clinet = new Clinet()
+const client = new Client()
 await client.connect()
 
 const condition = true
