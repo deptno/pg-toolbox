@@ -75,6 +75,19 @@ OFFSET
   ${$escape(20)}
 `
 ```
+
+### escape variable in array
+```ts
+import {$escape} from "./sql";
+
+const row = [1,2,${escape('current_timestamp')}]
+const [query, args] = sql`
+INSERT INTO
+  table
+VALUES
+  ${row}
+`
+```
 ### condition
 ```ts
 const condition = true

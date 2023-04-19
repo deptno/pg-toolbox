@@ -27,32 +27,31 @@ export const minmax = (column: string, v?: NullableMinMaxData, o?: NullableMinMa
 
 function _sql({add, args}) {
   return (clauses: TemplateStringsArray, ...exps: any[]): string => clauses
-    .reduce((cc, c, i) => {
-      const v = exps[i - 1]
-
-      if (typeof v === 'function') {
-        const [subClauses, subArgs] = v()
-
-        return cc + _sql({add, args: subArgs})(subClauses, ...subArgs) + c
-      }
-      if (v instanceof Escape) {
-        return cc + v.get() + c
-      }
-      if (Array.isArray(v)) {
-        return cc + _arrayArgs(add, v) + c
-      }
-      if (v instanceof MinMax) {
-        return `${cc}numrange(${v.min},${v.max})`
-      }
-      if (v instanceof NullableMinMax) {
-        return cc + v.get(add)
-      }
-
-      return cc + add(v) + c
-    })
+    .reduce((cc, c, i) => cc + _arg(add, exps[i - 1], c))
     .split('\n')
     .filter(Boolean)
     .join('\n')
+}
+function _arg(add, v: any, c = '') {
+  if (Array.isArray(v)) {
+    return _arrayArgs(add, v) + c
+  }
+  if (typeof v === 'function') {
+    const [subClauses, subArgs] = v()
+
+    return _sql({add, args: subArgs})(subClauses, ...subArgs) + c
+  }
+  if (v instanceof Escape) {
+    return v.get() + c
+  }
+  if (v instanceof MinMax) {
+    return `numrange(${v.min},${v.max})`
+  }
+  if (v instanceof NullableMinMax) {
+    return v.get(add)
+  }
+
+  return add(v) + c
 }
 function _arrayArgs(add, v: any) {
   if (v.length > 0) {
@@ -60,13 +59,12 @@ function _arrayArgs(add, v: any) {
       if (Array.isArray(vv)) {
         return '(' + _arrayArgs(add, vv) + ')'
       }
-      return add(vv)
+      return _arg(add, vv)
     })
   } else {
     return 'NULL'
   }
 }
-
 
 type NullableMinMaxData = {
   min?: Number
