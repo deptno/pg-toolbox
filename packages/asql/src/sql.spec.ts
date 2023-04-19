@@ -1,4 +1,4 @@
-import {$if, $sql, sql} from './sql'
+import {$escape, $if, $sql, sql} from './sql'
 
 describe('sql', function () {
   it('should sql', function () {
@@ -56,5 +56,21 @@ ${$if(true, $sql`
 
     `
     expect(args).toHaveLength(4)
+  })
+  it('asql should support escape in nested array', function () {
+    const values = [
+      ['current_time', $escape('current_time'), 1],
+    ]
+    const [text, args] = sql`
+    insert into table (element1, element2, element2) ${$escape('escape text')}
+    values (${values})
+    returning *
+    `
+
+    expect(args).toHaveLength(2)
+    expect(text).toBe(`    insert into table (element1, element2, element2) escape text
+    values (($1,current_time,$2))
+    returning *
+    `)
   })
 })
