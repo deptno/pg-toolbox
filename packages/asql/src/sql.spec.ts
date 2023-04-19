@@ -59,7 +59,7 @@ ${$if(true, $sql`
   })
   it('asql should support escape in nested array', function () {
     const values = [
-      ['current_time', $escape('current_time'), 1],
+      ['current_time', $escape('current_timestamp'), 1],
     ]
     const [text, args] = sql`
     insert into table (element1, element2, element2) ${$escape('escape text')}
@@ -69,7 +69,7 @@ ${$if(true, $sql`
 
     expect(args).toHaveLength(2)
     expect(text).toBe(`    insert into table (element1, element2, element2) escape text
-    values (($1,current_time,$2))
+    values (($1,current_timestamp,$2))
     returning *
     `)
   })
