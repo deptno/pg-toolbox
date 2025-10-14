@@ -13,6 +13,7 @@ npm install asql
 - $sql
 - $if
 - $escape
+- $raw
 - minmax
 
 ## usage
@@ -88,6 +89,23 @@ VALUES
   ${row}
 `
 ```
+
+### raw variable
+```ts
+import {$raw} from "./sql";
+
+const [query, args] = sql`
+INSERT INTO TABLE
+  (element1, element2, element2)
+SELECT
+  ${values[0]},
+  ${values[1]},
+  ${values[2]}
+from
+  unnest(${$raw(values[3])}::text[]) as t
+`
+```
+
 ### condition
 ```ts
 const condition = true
