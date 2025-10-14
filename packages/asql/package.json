@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "deploy": "npm publish"
+    "deploy": "rm -rf dist && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
