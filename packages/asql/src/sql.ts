@@ -34,7 +34,6 @@ function _sql({add, args}) {
     .join('\n')
 }
 function _arg(add, v: any, c = '') {
-  console.log({v, c})
   if (Array.isArray(v)) {
     return _arrayArgs(add, v) + c
   }
