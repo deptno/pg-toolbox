@@ -68,8 +68,7 @@ ${$if(true, $sql`
     `
 
     expect(args).toHaveLength(2)
-    expect(text).toBe(`
-    insert into table (element1, element2, element2) escape text
+    expect(text).toBe(`    insert into table (element1, element2, element2) escape text
     values (($1,current_timestamp,$2))
     returning *
     `)
