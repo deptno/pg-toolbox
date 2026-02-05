@@ -1,5 +1,5 @@
 import {BindVariable, createPgArgs} from './pg-args'
-import {Escape, MinMax, NullableMinMax} from './entity'
+import {Escape, MinMax, NullableMinMax, Raw} from './entity'
 
 export const sql = (clauses: TemplateStringsArray, ...exps: any[]): [string, BindVariable[]] => {
   const pgArgs = createPgArgs()
@@ -23,6 +23,7 @@ export const $if = (condition: unknown, ...tt: any[]) => {
 }
 export const $sql = (clauses: TemplateStringsArray, ...exps: any[]) => [clauses, exps]
 export const $escape = (v) => new Escape(v)
+export const $raw = (v) => new Raw(v)
 export const minmax = (column: string, v?: NullableMinMaxData, o?: NullableMinMaxOption) => new NullableMinMax(column, v, o)
 
 function _sql({add, args}) {
@@ -43,6 +44,9 @@ function _arg(add, v: any, c = '') {
   }
   if (v instanceof Escape) {
     return v.get() + c
+  }
+  if (v instanceof Raw) {
+    return v.get(add) + c
   }
   if (v instanceof MinMax) {
     return `numrange(${v.min},${v.max})`

@@ -1,4 +1,4 @@
-import {$escape, $if, $sql, sql} from './sql'
+import {$escape, $if, $raw, $sql, sql} from './sql'
 
 describe('sql', function () {
   it('should sql', function () {
@@ -71,6 +71,22 @@ ${$if(true, $sql`
     expect(text).toBe(`    insert into table (element1, element2, element2) escape text
     values (($1,current_timestamp,$2))
     returning *
+    `)
+  })
+  it('unnest', function () {
+    const values = [
+      1,2,3,['hello', 'world']
+    ]
+    const [text, args] = sql`
+      insert into table (element1, element2, element2)
+      select ${values[0]}, ${values[1]}, ${values[2]}
+      from unnest(${$raw(values[3])}::text[]) as t
+    `
+
+    expect(args).toHaveLength(4)
+    expect(text).toBe(`      insert into table (element1, element2, element2)
+      select $1, $2, $3
+      from unnest($4::text[]) as t
     `)
   })
 })

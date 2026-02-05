@@ -1,12 +1,12 @@
 {
   "name": "asql",
-  "version": "0.4.0",
+  "version": "0.5.2",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "deploy": "npm publish"
+    "deploy": "rm -rf dist && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
